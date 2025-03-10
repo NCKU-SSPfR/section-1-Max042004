@@ -9,6 +9,7 @@ game_state = {}
 
 async def login_request():
     """Simulates a frontend login."""
+    global game_state
     
     payload = {"username": USERNAME}
     
@@ -30,6 +31,7 @@ async def reset_request():
 
 async def move_request(dir):
     """Simulates a frontend move request."""
+    global game_state
 
     payload = {"username": USERNAME, "direction": dir}
     
