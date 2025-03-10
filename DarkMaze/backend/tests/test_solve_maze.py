@@ -45,6 +45,11 @@ async def test_integration():
     await reset_request()
     for _ in range(5):
         await move_request("down")
+
+    async with httpx.AsyncClient() as client:
+        response = await client.post(MOVE_URL, json=payload)
+
+    assert response.status_code == 200  # Ensure the request was successful
     game_state = response.json()
     assert game_state["current_position"] == [1, 5]
 
@@ -69,5 +74,10 @@ async def test_solver():
     await move_request("right")
     for _ in range(2):
         await move_request("down")
+    
+    async with httpx.AsyncClient() as client:
+        response = await client.post(MOVE_URL, json=payload)
+
+    assert response.status_code == 200  # Ensure the request was successful
     game_state = response.json()
     assert game_state["health"] == 666
